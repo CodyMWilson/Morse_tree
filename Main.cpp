@@ -13,7 +13,6 @@
 #include "Tree_node.h"
 #include "Binary_Tree.h"
 #include "Binary_Search_Tree.h"
-#include "BST_insert.h"
 
 using namespace std;
 

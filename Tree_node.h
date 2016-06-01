@@ -1,9 +1,10 @@
-#include <sstream>
+#pragma once
 #include <sstream>
 
 using namespace std;
 
 //This is the example Binary Tree Node from page 458.
+//
 template<typename Item_Type>
 struct Tree_node
 {
@@ -30,9 +31,9 @@ struct Tree_node
 
 //Overloading an ostream insertion operator
 template<typename Item_Type>
-ostream& operator<<(ostream& out, const Tree_node <Item_Type>& node)
+ostream& operator<<(ostream& out, const Tree_node<Item_Type>& node)
 {
 	return out << node.to_string();
 }
-using namespace std;
+
 

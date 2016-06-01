@@ -3,6 +3,7 @@
 
 /** Class for a binary tree. */
 
+#pragma once
 #include <cstddef>
 #include <sstream>
 #include <stdexcept>
@@ -66,10 +67,6 @@ Binary_Tree(const Item_Type& the_data,
   }
 
 
-
-
-
-    
 
   protected:
 

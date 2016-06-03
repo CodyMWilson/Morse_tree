@@ -188,9 +188,15 @@ template<typename Item_Type>
     return &(local_root->data);
 }
 
-
+  /* 
+  @param local_root Reference to the current root
+  @param item Data to be inserted
+  @param location Vector of '1' and '0' character values encoding the desired location of the data to be inserted. '1' represents a right branch; '0' represents a left branch.
+  @param start_index Index at which the functino begins reading the location vector. Pass this in as 0 in most cases. Each time the function calls itself this value increments by 1.
+  @return true if the item was inserted, false otherwise
+  */
   template<typename Item_Type>
-  bool Binary_Search_Tree<Item_Type>::insert(Tree_node<Item_Type>*& local_root, const Item_Type& item)
+  bool Binary_Search_Tree<Item_Type>::insert(Tree_node<Item_Type>*& local_root, const Item_Type& item, const vector<char> location, int start_index)
   {
 	  if (local_root == NULL)
 	  {
@@ -199,10 +205,10 @@ template<typename Item_Type>
 	  }
 	  else
 	  {
-		  if (item < local_root->data)
-			  return insert(local_root->left, item);
-		  else if (local_root->data < item)
-			  return insert(local_root->right, item);
+		  if (location[start_index] == '0')
+			  return insert(local_root->left, item, location, start_index + 1);
+		  else if (location[start_index == '1')
+			  return insert(local_root->right, item, location, start_index + 1);
 		  else
 			  return false;
 	  }

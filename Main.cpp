@@ -8,15 +8,30 @@
 // ---
 
 #pragma once
-#include "stdafx.h"
+//#include "stdafx.h"
 #include <iostream>
-#include "Tree_node.h"
-#include "Binary_Tree.h"
-#include "Binary_Search_Tree.h"
+#include "MBinary_Tree.h"
+#include "MBinary_Search_Tree.h"
+#include "MTree_node.h"
+#include <fstream>
+
 
 using namespace std;
 
 int main() {
+
+	
+	ifstream myReadFile;
+	string line;
+	myReadFile.open("morse_key.txt"); //Change to your directory to work correctly (properties etc...)
+	char output[1000];
+	if (myReadFile.is_open()) {
+		while (getline (myReadFile, line) )
+		{
+			cout << line << '/n'; //Read in functionality
+		}
+	}
+	myReadFile.close();
 
 	char chars[100];
 	char char1 = 'h';
@@ -27,16 +42,11 @@ int main() {
 		chars[i + 1] = chars[i] + 1;
 	}
 
-	Binary_Search_Tree<char> new_tree;
+	Binary_Search_Tree* new_tree =  new Binary_Search_Tree();
 
-	for (int i = 9; i > 0; i--)
-	{
-		new_tree.insert(chars[i]);
-		new_tree.insert(chars[i] - 1);
-	}
 	
-	new_tree.insert('a');
-	new_tree.insert('b');
+	new_tree->insert("001",'p');
+
 
 	//new_tree.insert('a');
 
@@ -50,13 +60,8 @@ int main() {
 	//cout << location;
 	//cout << new_tree.find(3);
 
-	new_tree.prettyPrint();
+	new_tree->prettyPrint();
 	cout << endl;
-
-	const char* p;
-	p = new_tree.find('k');
-
-	cout << *p;
 
 	return 0;
 }

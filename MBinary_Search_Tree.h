@@ -97,7 +97,7 @@
 
 }; // End binary search tree
 
-  bool less_than_morse(string first, string second) {
+  /*bool less_than_morse(vector<char> first, string second) {
 	  int i = 0;
 	  if (first == second) {
 		  return false;
@@ -135,7 +135,7 @@
 	  }
 	  return false;
   }
-
+  */
   //Default implentation
 // Implementation of member functions
 
@@ -174,7 +174,7 @@
   if (local_root == NULL) {
     return false;
   } 
-  else {
+ /* else {
 	if (local_root->letter == NULL) {
 		if (the_morse.at(0) == '0') {
 			return erase(local_root->left, the_morse);
@@ -202,7 +202,7 @@
   }
 }
 
-
+*/
 void Binary_Search_Tree::replace_parent(Tree_node*& old_root,
 					      Tree_node*& local_root) {
   if (local_root->right != NULL) {

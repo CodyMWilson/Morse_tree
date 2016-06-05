@@ -1,6 +1,7 @@
 #pragma once
 #include <sstream>
 #include <string>
+#include <vector>
 
 using namespace std;
 
@@ -8,7 +9,7 @@ using namespace std;
 //
 struct Tree_node
 {
-	string morse_sequence;
+	vector<char> morse_sequence;
 	char letter;
 	Tree_node* left;
 	Tree_node* right;
@@ -26,7 +27,9 @@ struct Tree_node
 	//to-string
 	virtual string to_string() const {
 		ostringstream os;
-			os << letter << " " << morse_sequence;
+		os << letter << " ";
+		for (int i = 0; i < morse_sequence.size(); i++)
+			os << morse_sequence[i];
 		return os.str();
 	}
 };

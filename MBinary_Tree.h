@@ -25,7 +25,7 @@ Binary_Tree() : root(NULL) {}
       @param left_child The left subtree
       @param right_child The right subtree
   */
-Binary_Tree(const string the_morse,
+Binary_Tree(const vector<char> the_morse,
 			const char the_letter,
             const Binary_Tree& left_child
               = Binary_Tree(),
@@ -130,7 +130,7 @@ Binary_Tree::get_right_subtree() const {
     @throws std::invalid_argument if null tree
 */
 
-const string& Binary_Tree::get_morse() const {
+const vector<char>& Binary_Tree::get_morse() const {
   if (root == NULL) {
     throw std::invalid_argument("get_morse on null tree");
   }

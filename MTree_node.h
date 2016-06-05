@@ -14,7 +14,7 @@ struct Tree_node
 	Tree_node* right;
 
 	//Constructor
-	Tree_node(const string the_morse,
+	Tree_node(const vector<char> the_morse,
 		const char the_letter,
 		Tree_node* left_val = NULL,
 		Tree_node* right_val = NULL) : morse_sequence(the_morse), letter(the_letter), left(left_val), right(right_val)

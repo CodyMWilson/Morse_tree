@@ -1,6 +1,6 @@
 // ---
 //
-//Main file for More-tree applications
+//Main file for Morse-tree applications
 //Submitted by:
 //Cody Wilson
 //Nathaniel Davidson
@@ -17,7 +17,7 @@
 // ---
 
 #pragma once
-//#include "stdafx.h"
+//#include "stdafx.h" //Useful depending on your project type
 #include <iostream>
 #include "MBinary_Tree.h"
 #include "MBinary_Search_Tree.h"
@@ -30,8 +30,32 @@ using namespace std;
 
 int main() {
 
-	//cout << "Test cout\n";
+	//****************************************************************************************************************
+	//User input
+	//Written by Cody Wilson
+	// O(1)
+
+	cout << "Written by Todd deFluiter, Nathanael Davidson and Cody Wilson\n";
+		//Let the user know the purpose of the program
+	cout << "The purpose of this program is to read a morse-code text document using 0's and 1's and write the corresponding message using a binary tree.\n\n\n";
 	
+		//Initialize key strings
+	string input = "";
+	string fileString = "";
+	cout << "Please enter in the name of a file you would like to read, located in the project folder or press 1 to use the test file and hit enter.\n";
+	cin >> input;
+	
+		//Allow for quick functionality or user-defined specific functionality
+	if (input == "1")
+		fileString = "morse_input.txt";
+	else
+		fileString = input;
+
+	cout << "Here is what was input via the file: ";
+
+	//*****************************************************************************************************************
+
+		//Declartions of some file input necessities
 	ifstream myReadFile;
 	string line;
 	char letter;
@@ -40,7 +64,6 @@ int main() {
 	Binary_Search_Tree* new_tree = new Binary_Search_Tree();	//This creates the tree.
 	new_tree->insert("", NULL);									//This sets the root node to an empty node.
 
-	//char output[1000];
 
 	//******************************************************************************************************************
 	//Create the decoding tree
@@ -66,18 +89,19 @@ int main() {
 
 	/********************************************************************************************************************/
 	//Decode and write to out.txt
-	//writen by Todd deFluiter
+	//written by Todd deFluiter
 	//assisted by both
 	
 	string line2;
 	string temp_morse;
-	ofstream ofile("out.txt");				//output file
-	ifstream ifile("morse_input.txt");		//input file
+	ofstream ofile("out.txt");		//output file
+	ifstream ifile(fileString);		//input file
 	char inchar;
 	if (ofile.is_open() & ifile.is_open()) {			//if openening succeded, start decoding
 		while (getline(ifile, line2)) {					//read each line
 			for (int i = 0; i < line2.length(); i++) {	//check each character
 				inchar = (char)line2.at(i);
+				cout << inchar;
 				if (inchar == '1' || inchar == '0') {	//prepare for decoding
 					temp_morse.append(1, inchar);
 				}
@@ -98,16 +122,52 @@ int main() {
 		cout << "files not found" << endl;
 	}
 
+	//**********************************************************************************************************************
+	//Reading of output file to console window
+	//Written by Cody Wilson with help from Nathaniel Davidson's code and Stack Exchange (listed in MBinary_Search_Tree)
 
+		//Let the user know what was written to file
+	cout << "\nThis is the deciphered message and the contents of the output file: ";
 
-	
-	//new_tree->insert("001",'p', 0);
-	cout << "Here is our beautiful tree:\n";
+		//This was the file that was just written
+	myReadFile.open("out.txt");			
+											
+		//Read the file that was just written
+	if (myReadFile.is_open()) {
+		while (getline(myReadFile, line))
+		{
+			cout << line;
+		}
+	}
+	else
+			//Error check
+		cout << "Files failed to write.\n";
+	myReadFile.close();	
 
-	new_tree->prettyPrint();		//Print out our beautiful tree
+		//Nice for spacing 
+	cout << endl;
+	cout << endl;
+
+		//Allow the user to see the decipher tree
+	string option;
+	cout << "Would you like to see a graphical representation of the tree? (Y/N)\n";
+	cin >> option;
+
+		//Logic for user input
+	if (option == "Y")
+	{
+		cout << "Here is a sideways graphical representation of the beautiful tree: \n";
+
+			//Print the tree
+		new_tree->prettyPrint();
+	}
 
 	cout << endl;
 
+	cout << "Please close the window to exit the program.";
+
+		//Wait for the user to end the program before quitting
+	while (1);
 	//cout << "Search for 0: " << new_tree->search("0");
 
 	return 0;

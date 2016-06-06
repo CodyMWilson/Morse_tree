@@ -9,6 +9,8 @@
 #include <iostream>
 #include <typeinfo>
 
+//Main code for binary tree implemented by Cody Wilson from book source code
+
 /** Definition of the Binary Search Tree class. 
     @param Item_Type The type of item to be stored in the tree
     Note: Item_Type must define the less-than operator as a 
@@ -206,6 +208,8 @@
 	  return prettyPrint(this->root, 0);
   }
 
+  //Implemented by Cody Wilson
+  //While not part of the problem description, it sounded useful to print the tree so I found some code to do that.
   //Found on Stack exchange to print a pretty visual here: http://stackoverflow.com/questions/13484943/print-a-binary-tree-in-a-pretty-way
   //Credit to dasblinkenlight
   void Binary_Search_Tree::prettyPrint(Tree_node*& p, int indent)

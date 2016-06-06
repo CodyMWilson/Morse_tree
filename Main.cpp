@@ -1,8 +1,17 @@
 // ---
-//Base node for Binary Tree 
+//
+//Main file for More-tree applications
+//Submitted by:
 //Cody Wilson
-//5/27/2016
-//Builds and runs
+//Nathaniel Davidson
+//Todd Defluiter
+//6/6/2016
+//
+//The purpose of this program is to input a file of morse code and it's corresponding letter and write the 
+// message to a file output. 
+//Code was worked on collaboratively, based on example code from chapter 8 of Objects, Data Structures and 
+// Design using C++ by Elliot Koffman and Paul Wolfgang.
+//Specific code referenced from p. 457 - 479 and online at http://bcs.wiley.com/he-bcs/Books?action=resource&bcsId=2949&itemId=0471467553&resourceId=7105&chapterId=21532
 //
 //
 // ---
@@ -14,13 +23,14 @@
 #include "MBinary_Search_Tree.h"
 #include "MTree_node.h"
 #include <fstream>
-//#include "Main.h"
+
 
 
 using namespace std;
 
 int main() {
 
+	cout << "Test cout\n";
 	
 	ifstream myReadFile;
 	string line;
@@ -29,7 +39,7 @@ int main() {
 	string morse;
 	
 	Binary_Search_Tree* new_tree = new Binary_Search_Tree();
-
+	
 	myReadFile.open("morse_key.txt"); //Change to your directory to work correctly (properties etc...)
 	char output[1000];
 	if (myReadFile.is_open()) {
@@ -58,26 +68,15 @@ int main() {
 		chars[i + 1] = chars[i] + 1;
 	}
 
-	//Binary_Search_Tree* new_tree =  new Binary_Search_Tree();
 
 	
-	new_tree->insert("001",'p', 1);
-
-
-	//new_tree.insert('a');
-
-	//new_tree.insert('z');
-
-	//new_tree.insert('l');
-
-//	cout << new_tree << endl;
-	
-	//char location = new_tree.find(3);
-	//cout << location;
-	//cout << new_tree.find(3);
+	//new_tree->insert("001",'p', 0);
 
 	new_tree->prettyPrint();
+
 	cout << endl;
+
+	cout << "Search for 0: ";// << new_tree->search("0");
 
 	return 0;
 }

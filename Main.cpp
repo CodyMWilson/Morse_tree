@@ -3,7 +3,7 @@
 //Main file for Morse-tree applications
 //Submitted by:
 //Cody Wilson
-//Nathaniel Davidson
+//Nathanael Davidson
 //Todd Defluiter
 //6/6/2016
 //
@@ -124,7 +124,7 @@ int main() {
 
 	//**********************************************************************************************************************
 	//Reading of output file to console window
-	//Written by Cody Wilson with help from Nathaniel Davidson's code and Stack Exchange (listed in MBinary_Search_Tree)
+	//Written by Cody Wilson with help from Nathanael Davidson's code and Stack Exchange (listed in MBinary_Search_Tree)
 
 		//Let the user know what was written to file
 	cout << "\nThis is the deciphered message and the contents of the output file: ";

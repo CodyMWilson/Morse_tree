@@ -131,8 +131,9 @@
 	  const string& the_morse, const char& the_letter) {
   return insert(this->root, the_morse, the_letter, 0);
 }
-
-
+  //Written by Nathanael Davidson
+  //Inserts character value and morse-code equivalent to tree at a location dependent on its morse-code value
+  // O(10)
   bool Binary_Search_Tree::insert(
 	  Tree_node*& local_root,
 	  const string& the_morse, const char& the_letter, int start_index) {

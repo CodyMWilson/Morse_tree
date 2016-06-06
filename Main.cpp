@@ -40,19 +40,24 @@ int main() {
 	Binary_Search_Tree* new_tree = new Binary_Search_Tree();	//This creates the tree.
 	new_tree->insert("", NULL);									//This sets the root node to an empty node.
 
-	myReadFile.open("morse_key2.txt"); //Change to your directory to work correctly (properties etc...)
 	//char output[1000];
 
 	//******************************************************************************************************************
 	//Create the decoding tree
+	//Written by Nathanael Davidson
+	//O(104)
+	myReadFile.open("morse_key.txt");			//File contains a list of characters and their morse-code equivalents (0 represents a dot, 1 represents a dash)
+												//Example: a 01
+												//         b 1000
+												//         . . .
+
 	if (myReadFile.is_open()) {
 		while (getline(myReadFile, line))
 		{
-			//cout << line << endl; //Read in functionality
-			letter = (char)line.at(0);
+			letter = (char)line.at(0);					//Character value = first character of each line
 			for (int i = 2; i < line.size(); i++)
-				morse.push_back(line.at(i));
-			new_tree->insert(morse, letter);
+				morse.push_back(line.at(i));			//Morse code value = remaining contents of line after space
+			new_tree->insert(morse, letter);			//Inserts values into the tree
 			morse.clear();
 		}
 	}

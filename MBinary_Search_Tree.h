@@ -27,7 +27,7 @@
       @return true if the item was not already
               in the tree, false otherwise
   */
-  virtual bool insert(const vector<char>& the_morse, const char& the_letter);
+  virtual bool insert(const string& the_morse, const char& the_letter, int start_index);
 
   /** Remove an item from the tree. 
       post: The item is no longer in the tree.
@@ -35,7 +35,7 @@
       @return true if the item was in the tree,
               false otherwise
   */
-  virtual bool erase(const vector<char>& the_morse);
+  virtual bool erase(const string& the_morse);
 
 
   /** Determine whether an item is in the tree.
@@ -71,7 +71,7 @@
               false otherwise
   */
   virtual bool erase(Tree_node*& local_root, 
-             const vector<char>& the_morse);
+             const string& the_morse);
 
 
   /** Determine whether an item is in the tree.
@@ -97,7 +97,7 @@
 
 }; // End binary search tree
 
-  /*bool less_than_morse(vector<char> first, string second) {
+  bool less_than_morse(string first, string second) {
 	  int i = 0;
 	  if (first == second) {
 		  return false;
@@ -135,46 +135,49 @@
 	  }
 	  return false;
   }
-  */
+
   //Default implentation
 // Implementation of member functions
 
   bool Binary_Search_Tree::insert(
-	  const vector<char>& the_morse, const char& the_letter) {
-  return insert(this->root, the_morse, the_letter, 0);
-}
-
-
-  bool Binary_Search_Tree::insert(
-    Tree_node*& local_root,
 	  const vector<char>& the_morse, const char& the_letter, int start_index) {
-	  if (local_root == NULL)
-	  {
-		  local_root = new Tree_node(the_morse, the_letter);
-		  return true;
-	  }
-	  else
-	  {
-		  if (the_morse[start_index] == '0')
-			  return insert(local_root->left, the_morse, the_letter, start_index + 1);
-		  else if (the_morse[start_index] == '1')
-			  return insert(local_root->right, the_morse, the_letter, start_index + 1);
-		  else
-			  return false;
-	  }
+  return insert(this->root, the_morse, the_letter, start_index);
 }
+
+
+bool Binary_Search_Tree::insert(
+	Tree_node*& local_root,
+	const vector<char>& the_morse, const char& the_letter, int start_index) {
+	string morse_string;
+	for (int i = 0; i < the_morse.size(); i++)
+		morse_string.append((string)the_morse[i]);
+	if (local_root == NULL)
+	{
+		local_root = new Tree_node(the_morse, the_letter);
+		return true;
+	}
+	else
+	{
+		if (the_morse[start_index] == '0')
+			return insert(local_root->left, the_morse, the_letter, start_index + 1);
+		else if (the_morse[start_index] == '1')
+			return insert(local_root->right, the_morse, the_letter, start_index + 1);
+		else
+			return false;
+}
+
   bool Binary_Search_Tree::erase(
-    const vector<char>& the_morse) {
+    const string& the_morse) {
   return erase(this->root, the_morse);
 }
 
   bool Binary_Search_Tree::erase(
     Tree_node*& local_root,
-     const vector<char>& the_morse) {
+     const string& the_morse) {
   if (local_root == NULL) {
     return false;
   } 
- /* else {
+  else {
 	if (local_root->letter == NULL) {
 		if (the_morse.at(0) == '0') {
 			return erase(local_root->left, the_morse);
@@ -202,7 +205,7 @@
   }
 }
 
-*/
+
 void Binary_Search_Tree::replace_parent(Tree_node*& old_root,
 					      Tree_node*& local_root) {
   if (local_root->right != NULL) {

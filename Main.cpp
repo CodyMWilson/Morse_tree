@@ -40,7 +40,7 @@ int main() {
 	Binary_Search_Tree* new_tree = new Binary_Search_Tree();
 	new_tree->insert("", NULL);
 
-	myReadFile.open("morse_key2.txt"); //Change to your directory to work correctly (properties etc...)
+	myReadFile.open("morse_key.txt"); //Change to your directory to work correctly (properties etc...)
 	char output[1000];
 	if (myReadFile.is_open()) {
 		while (getline(myReadFile, line))

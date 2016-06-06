@@ -102,7 +102,7 @@ int main() {
 
 	
 	//new_tree->insert("001",'p', 0);
-	cout << "Here is our beautiful tree:";
+	cout << "Here is our beautiful tree:\n";
 
 	new_tree->prettyPrint();		//Print out our beautiful tree
 

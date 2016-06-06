@@ -125,55 +125,59 @@
 
 // Implementation of member functions ---------------------------------------------------------------
 
-	//Who wrote it
-  //What it does
+//Overloading the insert function
   bool Binary_Search_Tree::insert(
 	  const string& the_morse, const char& the_letter) {
   return insert(this->root, the_morse, the_letter, 0);
 }
+  /* Insert function definition
+     Written by Nathanael Davidson
+     Inserts character value and morse-code equivalent to tree at a location dependent on its morse-code value
+	 
+	 @param local root A reference to the current root
+	 @param the_morse Morse code value
+	 @param the_letter Character value
+	 @param start_index Index to begin reading the_morse at (should be passed in as 0 initially)
+	 @return true if a node is inserted, false otherwise
 
-
+     O(10)
+  */
   bool Binary_Search_Tree::insert(
 	  Tree_node*& local_root,
 	  const string& the_morse, const char& the_letter, int start_index) {
 		  
-		if (local_root == NULL)
+		if (local_root == NULL)					//Check for node contents
 		{
-			local_root = new Tree_node(the_morse, the_letter);
+			local_root = new Tree_node(the_morse, the_letter);			//If empty, create node here
 			return true;
 		}
 		else
 		{
-			if (local_root->morse_sequence.size() > the_morse.size()) {
-				insert(local_root->morse_sequence, local_root->letter);
-				local_root->morse_sequence = the_morse;
+			if (local_root->morse_sequence.size() > the_morse.size())		//Compare size of morse string currently in node to size of string passed in
+			{
+				insert(local_root->morse_sequence, local_root->letter);		//If existing string is larger, insert contents of current node back into tree
+				local_root->morse_sequence = the_morse;						//Replace contents of current node with values passed in
 				local_root->letter = the_letter;
 				return true;
 			}
 			else {
 				if (the_morse[start_index] == '0')
-					return insert(local_root->left, the_morse, the_letter, start_index + 1);
+					return insert(local_root->left, the_morse, the_letter, start_index + 1);	//If morse code value at current index = 0, insert node to left branch
 				else if (the_morse[start_index] == '1')
-					return insert(local_root->right, the_morse, the_letter, start_index + 1);
+					return insert(local_root->right, the_morse, the_letter, start_index + 1);	//If value = 1, insert to right branch
 				else
-					return false;
+					return false;		//Return false if no node is inserted
 			}
 		  }
   }
 
-
-  //Modified by Cody Wilson for morse_tree functionality
-  //This function takes a morse-code input calls the overloaded function with reference to the root of the tree
   const char Binary_Search_Tree::search(
     const string& target) const {
   return search(this->root, target);
 }
 
-  //Modified by Cody Wilson with help from Todd Defliuter from generic "find" function
+  //Modified by Cody Wilson for morse_tree functionality
   //This function takes a morse-code input and returns a corresponding character
-  //Took two revisions, but settled on this simplified version. The original version used a case statement
-  // and listed out every possible option, but it dawned on me that there was a much simplier solution.
-  //	Order: O(n), n=level of the tree
   const char Binary_Search_Tree::search(
 	  Tree_node* local_root,
 	  const string& target) const {
@@ -194,17 +198,14 @@
 	  return searchPtr->letter;
   }
   
-  //Modified by Cody Wilson from a function found online
   //Calls Pretty-print function below
   inline void Binary_Search_Tree::prettyPrint()
   {
 	  return prettyPrint(this->root, 0);
   }
 
-  //Modified to work for our tree by Cody Wilson
   //Found on Stack exchange to print a pretty visual here: http://stackoverflow.com/questions/13484943/print-a-binary-tree-in-a-pretty-way
   //Credit to dasblinkenlight
-  //Note: This tree prints sideways with the left printing the tip of the tree
   void Binary_Search_Tree::prettyPrint(Tree_node*& p, int indent)
   {
 	  if (p != NULL) {
@@ -222,5 +223,6 @@
 		  }
 	  }
   }
+
 
 #endif

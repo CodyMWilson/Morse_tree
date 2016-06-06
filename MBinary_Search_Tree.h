@@ -81,27 +81,29 @@
 
 }; // End binary search tree
 
-  //Who wrote it
-  //What it does
+  //Morse code comparing function
+  //Written by Todd deFluiter
+  //This function is a function to replace < for morse code so that "00" is less than "0"
   bool less_than_morse(string first, string second) {
 	  int i = 0;
-	  if (first == second) {
+	  if (first == second) {  //check if they are equal
 		  return false;
 	  }
-	  if (first.length() < second.length()) {
+	  if (first.length() < second.length()) {			//if the first is shorter than the second,
+														//the difference depends on the next digit in the second
 		  if (second.at(first.length()) == '0') {
 			  return false;
 		  }
 		  return true;
 	  }
-	  if (first.length() > second.length()) {
+	  if (first.length() > second.length()) {			//or the opposite
 		  if (first.at(second.length()) == '0') {
 			  return true;
 		  }
 		  return false;
 	  }
-	  for (int i = 0; i < second.length(); i++) {
-		  if (second.at(i) == NULL) {
+	  for (int i = 0; i < second.length(); i++) {		//If they are the same length normal things apply
+		  if (second.at(i) == NULL) {					//account for the first node being empty
 			  if (first.at(i) == 0) {
 				  return true;
 			  }
@@ -109,7 +111,7 @@
 				  return false;
 			  }
 		  }
-		  if (first.at(i) < second.at(i)) {
+		  if (first.at(i) < second.at(i)) {				
 			  return true;
 		  }
 		  if (first.at(i) > second.at(i)) {

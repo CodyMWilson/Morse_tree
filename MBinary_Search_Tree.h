@@ -2,6 +2,7 @@
 #define BINARY_SEARCH_TREE_H
 
 #include "MBinary_Tree.h"
+#include "MTree_node.h"
 #include <vector>
 #include <iomanip>
 #include <iostream>
@@ -61,7 +62,7 @@
               tree, false otherwise
   */
   virtual bool insert(Tree_node*& local_root, 
-              const vector<char>& the_morse, const char& the_letter, int start_index);
+              const string& the_morse, const char& the_letter, int start_index);
 
   /** Remove an item from the tree. 
       post: The item is no longer in the tree.
@@ -79,7 +80,7 @@
       @param target The item sought
       @return A const pointer to the item in the tree
   */
-  const string* find(Tree_node* local_root, 
+  virtual const string* find(Tree_node* local_root, 
                         const string& target) const;
   
   /** Find a replacement for a node that is being deleted.
@@ -140,31 +141,32 @@
 // Implementation of member functions
 
   bool Binary_Search_Tree::insert(
-	  const vector<char>& the_morse, const char& the_letter, int start_index) {
+	  const string& the_morse, const char& the_letter, int start_index) {
   return insert(this->root, the_morse, the_letter, start_index);
 }
 
 
-bool Binary_Search_Tree::insert(
-	Tree_node*& local_root,
-	const vector<char>& the_morse, const char& the_letter, int start_index) {
-	string morse_string;
-	for (int i = 0; i < the_morse.size(); i++)
-		morse_string.append((string)the_morse[i]);
-	if (local_root == NULL)
-	{
-		local_root = new Tree_node(the_morse, the_letter);
-		return true;
-	}
-	else
-	{
-		if (the_morse[start_index] == '0')
-			return insert(local_root->left, the_morse, the_letter, start_index + 1);
-		else if (the_morse[start_index] == '1')
-			return insert(local_root->right, the_morse, the_letter, start_index + 1);
-		else
-			return false;
-}
+  bool Binary_Search_Tree::insert(
+	  Tree_node*& local_root,
+	  const string& the_morse, const char& the_letter, int start_index) {
+	  string morse_string;
+	  for (int i = 0; i < the_morse.size(); i++)
+		  //morse_string.append((string)the_morse[i]);
+		  if (local_root == NULL)
+		  {
+			  local_root = new Tree_node(the_morse, the_letter);
+			  return true;
+		  }
+		  else
+		  {
+			  if (the_morse[start_index] == '0')
+				  return insert(local_root->left, the_morse, the_letter, start_index + 1);
+			  else if (the_morse[start_index] == '1')
+				  return insert(local_root->right, the_morse, the_letter, start_index + 1);
+			  else
+				  return false;
+		  }
+  }
 
   bool Binary_Search_Tree::erase(
     const string& the_morse) {

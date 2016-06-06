@@ -8,12 +8,13 @@
 // ---
 
 #pragma once
-//#include "stdafx.h"
+#include "stdafx.h"
 #include <iostream>
 #include "MBinary_Tree.h"
 #include "MBinary_Search_Tree.h"
 #include "MTree_node.h"
 #include <fstream>
+//#include "Main.h"
 
 
 using namespace std;
@@ -25,7 +26,7 @@ int main() {
 	string line;
 	char letter;
 	int n;
-	vector<char> morse;
+	string morse;
 	
 	Binary_Search_Tree* new_tree = new Binary_Search_Tree();
 
@@ -41,7 +42,7 @@ int main() {
 			while (line.at(n) != '/n') {
 				morse.push_back(line.at(n));
 			}
-			new_tree->insert(morse, letter);
+			new_tree->insert(morse, letter,1);
 			n = 0;
 			morse.clear();
 		}
@@ -57,10 +58,10 @@ int main() {
 		chars[i + 1] = chars[i] + 1;
 	}
 
-	Binary_Search_Tree* new_tree =  new Binary_Search_Tree();
+	//Binary_Search_Tree* new_tree =  new Binary_Search_Tree();
 
 	
-	new_tree->insert("001",'p');
+	new_tree->insert("001",'p', 1);
 
 
 	//new_tree.insert('a');
@@ -69,7 +70,7 @@ int main() {
 
 	//new_tree.insert('l');
 
-	cout << new_tree << endl;
+//	cout << new_tree << endl;
 	
 	//char location = new_tree.find(3);
 	//cout << location;

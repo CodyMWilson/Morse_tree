@@ -131,9 +131,8 @@
 	  const string& the_morse, const char& the_letter) {
   return insert(this->root, the_morse, the_letter, 0);
 }
-  //Written by Nathanael Davidson
-  //Inserts character value and morse-code equivalent to tree at a location dependent on its morse-code value
-  // O(10)
+
+
   bool Binary_Search_Tree::insert(
 	  Tree_node*& local_root,
 	  const string& the_morse, const char& the_letter, int start_index) {
@@ -162,13 +161,19 @@
 		  }
   }
 
+
+  //Modified by Cody Wilson for morse_tree functionality
+  //This function takes a morse-code input calls the overloaded function with reference to the root of the tree
   const char Binary_Search_Tree::search(
     const string& target) const {
   return search(this->root, target);
 }
 
-  //Modified by Cody Wilson for morse_tree functionality
+  //Modified by Cody Wilson with help from Todd Defliuter from generic "find" function
   //This function takes a morse-code input and returns a corresponding character
+  //Took two revisions, but settled on this simplified version. The original version used a case statement
+  // and listed out every possible option, but it dawned on me that there was a much simplier solution.
+  //	Order: O(n), n=level of the tree
   const char Binary_Search_Tree::search(
 	  Tree_node* local_root,
 	  const string& target) const {
@@ -189,14 +194,17 @@
 	  return searchPtr->letter;
   }
   
+  //Modified by Cody Wilson from a function found online
   //Calls Pretty-print function below
   inline void Binary_Search_Tree::prettyPrint()
   {
 	  return prettyPrint(this->root, 0);
   }
 
+  //Modified to work for our tree by Cody Wilson
   //Found on Stack exchange to print a pretty visual here: http://stackoverflow.com/questions/13484943/print-a-binary-tree-in-a-pretty-way
   //Credit to dasblinkenlight
+  //Note: This tree prints sideways with the left printing the tip of the tree
   void Binary_Search_Tree::prettyPrint(Tree_node*& p, int indent)
   {
 	  if (p != NULL) {
@@ -214,6 +222,5 @@
 		  }
 	  }
   }
-
 
 #endif

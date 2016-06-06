@@ -30,68 +30,54 @@ using namespace std;
 
 int main() {
 
-	//cout << "Test cout\n";
+	cout << "Test cout\n";
 	
 	ifstream myReadFile;
 	string line;
 	char letter;
 	string morse;
 	
-	Binary_Search_Tree* new_tree = new Binary_Search_Tree();	//This creates the tree.
-	new_tree->insert("", NULL);									//This sets the root node to an empty node.
+	Binary_Search_Tree* new_tree = new Binary_Search_Tree();
+	new_tree->insert("", NULL);
 
-	//char output[1000];
-
-	//******************************************************************************************************************
-	//Create the decoding tree
-	//Written by Nathanael Davidson
-	//O(104)
-	myReadFile.open("morse_key.txt");			//File contains a list of characters and their morse-code equivalents (0 represents a dot, 1 represents a dash)
-												//Example: a 01
-												//         b 1000
-												//         . . .
-
+	myReadFile.open("morse_key.txt"); //Change to your directory to work correctly (properties etc...)
+	char output[1000];
 	if (myReadFile.is_open()) {
 		while (getline(myReadFile, line))
 		{
-			letter = (char)line.at(0);					//Character value = first character of each line
+			cout << line << endl; //Read in functionality
+			letter = (char)line.at(0);
 			for (int i = 2; i < line.size(); i++)
-				morse.push_back(line.at(i));			//Morse code value = remaining contents of line after space
-			new_tree->insert(morse, letter);			//Inserts values into the tree
+				morse.push_back(line.at(i));
+			new_tree->insert(morse, letter);
 			morse.clear();
 		}
 	}
 	myReadFile.close();
-
-
-	/********************************************************************************************************************/
-	//Decode and write to out.txt
-	//writen by Todd deFluiter
-	//assisted by both
 	
 	string line2;
 	string temp_morse;
-	ofstream ofile("out.txt");				//output file
-	ifstream ifile("morse_input.txt");		//input file
+	ofstream ofile("out.txt");
+	ifstream ifile("morse_input.txt");
 	char inchar;
-	if (ofile.is_open() & ifile.is_open()) {			//if openening succeded, start decoding
-		while (getline(ifile, line2)) {					//read each line
-			for (int i = 0; i < line2.length(); i++) {	//check each character
+	if (ofile.is_open() & ifile.is_open()) {
+		while (getline(ifile, line2)) {
+			for (int i = 0; i < line2.length(); i++) {
 				inchar = (char)line2.at(i);
-				if (inchar == '1' || inchar == '0') {	//prepare for decoding
+				if (inchar == '1' || inchar == '0') {
 					temp_morse.append(1, inchar);
 				}
 				if (inchar == '.') {
-					ofile << new_tree->search(temp_morse);	//decode by character
+					ofile << new_tree->search(temp_morse);
 					temp_morse = "";
 				}
 				if (inchar == ' ') {
 					ofile << " ";
 				}
 			}
-			ofile << "\n";									//end line
+			ofile << "\n";
 		}
-		ifile.close();		//close things
+		ifile.close();
 		ofile.close();
 	}
 	else {
@@ -102,13 +88,12 @@ int main() {
 
 	
 	//new_tree->insert("001",'p', 0);
-	cout << "Here is our beautiful tree:";
 
-	new_tree->prettyPrint();		//Print out our beautiful tree
+	new_tree->prettyPrint();
 
 	cout << endl;
 
-	//cout << "Search for 0: " << new_tree->search("0");
+	cout << "Search for 0: " << new_tree->search("0");
 
 	return 0;
 }

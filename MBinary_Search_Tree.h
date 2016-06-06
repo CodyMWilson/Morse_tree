@@ -144,12 +144,20 @@
 		}
 		else
 		{
-			if (the_morse[start_index] == '0')
-				return insert(local_root->left, the_morse, the_letter, start_index + 1);
-			else if (the_morse[start_index] == '1')
-				return insert(local_root->right, the_morse, the_letter, start_index + 1);
-			else
-				return false;
+			if (local_root->morse_sequence.size() > the_morse.size()) {
+				insert(local_root->morse_sequence, local_root->letter);
+				local_root->morse_sequence = the_morse;
+				local_root->letter = the_letter;
+				return true;
+			}
+			else {
+				if (the_morse[start_index] == '0')
+					return insert(local_root->left, the_morse, the_letter, start_index + 1);
+				else if (the_morse[start_index] == '1')
+					return insert(local_root->right, the_morse, the_letter, start_index + 1);
+				else
+					return false;
+			}
 		  }
   }
 

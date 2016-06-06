@@ -1,3 +1,16 @@
+// ---
+//
+//Main file for Morse-tree applications
+//Submitted by:
+//Cody Wilson
+//Nathaniel Davidson
+//Todd Defluiter
+//6/6/2016
+//
+
+//Referenced in MBinary_search_tree
+
+
 #ifndef BINARY_SEARCH_TREE_H
 #define BINARY_SEARCH_TREE_H
 

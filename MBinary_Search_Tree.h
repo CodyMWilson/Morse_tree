@@ -1,3 +1,13 @@
+// ---
+//
+//Complete MBinary_search_tree file for Morse-tree applications
+//Submitted by:
+//Cody Wilson
+//Nathaniel Davidson
+//Todd Defluiter
+//6/6/2016
+//
+
 #ifndef BINARY_SEARCH_TREE_H
 #define BINARY_SEARCH_TREE_H
  
@@ -180,7 +190,7 @@
   return search(this->root, target);
 }
 
-  //Modified by Cody Wilson for morse_tree functionality
+  //Modified by Cody Wilson for morse_tree functionality based on binary_search_tree::find
   //This function takes a morse-code input and returns a corresponding character
   const char Binary_Search_Tree::search(
 	  Tree_node* local_root,
@@ -189,16 +199,36 @@
 	  Tree_node *searchPtr = local_root; //Declare a new tree pointer for tree traversal
 	  int target_length = target.size();
 
+		//Branch logic
 	  for (int i = 0; i < target_length; i++)
 	  {
-		  if (target.at(i) == '0') //check for branch direction
-				//If 0, branch left
-			  searchPtr = searchPtr->left;
-		  else
-				//If 1, branch right
-			  searchPtr = searchPtr->right;
+		  try {
+			  if (target.at(i) == '0') //check for branch direction
+			  {//If 0, branch left
+				  if (searchPtr->left == NULL) //Throw error if we are already at the end of the tree
+					  throw logic_error("This is the end of the tree on the left, the input binary is too long");
+				  searchPtr = searchPtr->left; //Branch otherwise
+			  }
+			  else if (target.at(i) == '1')
+			  {//If 1, branch right
+				  if (searchPtr->right == NULL) //Same logic
+					  throw logic_error("This is the end of the tree on the right, the input binary is too long");
+				  searchPtr = searchPtr->right;
+			  }
+			  else
+				  throw out_of_range("The input to search function is not strictly a string with 0's and 1's\n");
+		  }	//Catch both invalid arguments and bad pointers
+		  catch (out_of_range& e2)
+		  {
+			 cout << e2.what();
+		  }
+		  catch (logic_error& e3)
+		  {
+			  cout << e3.what();
+		  }
 	  }
 
+		//Return the answer
 	  return searchPtr->letter;
   }
   

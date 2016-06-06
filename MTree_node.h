@@ -1,3 +1,13 @@
+// ---
+//
+//Morse_tree_node file for Morse-tree applications
+//Submitted by:
+//Cody Wilson
+//Nathaniel Davidson
+//Todd Defluiter
+//6/6/2016
+//
+
 #pragma once
 #include <sstream>
 #include <string>

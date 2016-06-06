@@ -3,7 +3,7 @@
 //Main file for Morse-tree applications
 //Submitted by:
 //Cody Wilson
-//Nathanael Davidson
+//Nathaniel Davidson
 //Todd Defluiter
 //6/6/2016
 //
@@ -23,6 +23,7 @@
 #include "MBinary_Search_Tree.h"
 #include "MTree_node.h"
 #include <fstream>
+#include <exception>
 
 
 
@@ -51,7 +52,7 @@ int main() {
 	else
 		fileString = input;
 
-	cout << "Here is what was input via the file: ";
+	cout << "\nHere is what was input via the file: ";
 
 	//*****************************************************************************************************************
 
@@ -124,7 +125,7 @@ int main() {
 
 	//**********************************************************************************************************************
 	//Reading of output file to console window
-	//Written by Cody Wilson with help from Nathanael Davidson's code and Stack Exchange (listed in MBinary_Search_Tree)
+	//Written by Cody Wilson with help from Nathaniel Davidson's code and Stack Exchange (listed in MBinary_Search_Tree)
 
 		//Let the user know what was written to file
 	cout << "\nThis is the deciphered message and the contents of the output file: ";
@@ -150,13 +151,13 @@ int main() {
 
 		//Allow the user to see the decipher tree
 	string option;
-	cout << "Would you like to see a graphical representation of the tree? (Y/N)\n";
+	cout << "Would you like to see a graphical representation of the decipher tree? (Y/N)\n";
 	cin >> option;
 
 		//Logic for user input
 	if (option == "Y")
 	{
-		cout << "Here is a sideways graphical representation of the beautiful tree: \n";
+		cout << "Here is a sideways graphical representation of the beautiful decipher tree: \n";
 
 			//Print the tree
 		new_tree->prettyPrint();
@@ -164,11 +165,127 @@ int main() {
 
 	cout << endl;
 
-	cout << "Please close the window to exit the program.";
+	//****************************************************************************************************
+	//Atbash cipher functionality
+	//Written by Cody Wilson with heavy references to code worked on by everyone
+	//Stretch goal = slightly buggy but mostly functional
+	//O(n*p) on input where n is the number of characters in the file and p is the number of lines
+	//O(n) on output where n is the number of characters in the file
 
-		//Wait for the user to end the program before quitting
-	while (1);
-	//cout << "Search for 0: " << new_tree->search("0");
+	bool moveForward = false;
+	string option2;
+	while (moveForward == false) {
+		cout << "Would you like to decipher or cipher an atbash code? The same cipher process is used to decipher. (Y/close window/What)\n";
+		cout << "Close the window if you wish to exit the program.";
+		cin >> option2;
+		cout << endl;
+		cout << endl;
+
+		if (option2 == "What" || option2 == "what")
+		{
+			cout << "An Atbash cipher is a cipher in which the letters of any alphabet are replaced by letters that are their corresponding distance away from the center of the respective alphabet.\n";
+			cout << "For example, a would be z in an Atbash cipher.\n";
+			cout << endl;
+			cout << endl;
+		}
+		if (option2 == "Y")
+		{
+			moveForward = true;
+		}
+	}
+
+		//Initialize key strings
+		string input2 = "";
+		string fileString2 = "";
+		cout << "Please enter in the name of a text file you would like to read, located in the project folder or press 1 to use the test file and hit enter. Note that only lower case can be currently used.\n";
+		cin >> input2;
+
+		//Allow for quick functionality or user-defined specific functionality
+		if (input2 == "1")
+			fileString2 = "atbash_input.txt";
+		else
+			fileString2 = input2;
+
+		cout << "Here is what was input via the atbash file: ";
+		try {
+			//Actual input taken from functionality of morse-code input and tweaked for functionality
+			string line3;
+			string temp_atbash;
+			ofstream ofile2("atbash_out.txt");		//output file
+			ifstream ifile2(fileString2);			//input file
+			char inchar2;
+			if (ofile2.is_open() & ifile2.is_open()) {			//if openening succeded, start decoding
+				while (getline(ifile2, line3)) {				//read each line
+					for (int i = 0; i < line3.length(); i++) {	//check each character
+						inchar2 = (char)line3.at(i);
+						cout << inchar2;
+						if (int(inchar2) >= 97 || int(inchar2) <= 122)	//prepare for decoding
+						{
+							char decoded_atbash;
+
+							//Decodes the cipher
+							//Below is a walkthrough of how the math works
+							//Does not use a tree, but in the same spirit of the rest of the program
+							//Note: There is a character output at the end of each word that needs debugging
+							//Functional, tested and works
+							//int(inchar2) - 97) casts the ascii character to an integer and normalizes it to a = 0, b = 1 etc...
+							// 13 - (previous) finds the distance away from the middle of the alpahbet (26 - 13)
+							// 13 + (previous) - 1 simply takes and mirrors the distance from the center of the alphabet. The minus one is for calibration.
+							//  Thus, 'a' becomes 'x' as distance 13 away from the center of the alphabet 
+							//char(97 + previous)  un-normalizes the text to maintain location in the ascii alphabet
+							decoded_atbash = char(97 + 13 + (13 - (int(inchar2) - 97)) - 1); //Normalizes and decodes the cipher
+
+							ofile2 << decoded_atbash; //writes to file
+						}
+
+						if (inchar2 == ' ') {
+							ofile2 << " ";
+						}
+							//Works but breaks semi-functionality
+							//Needs debugging
+						else
+						{ /*throw out_of_range("This input is not a lowercase character."); */}
+					}
+					ofile2 << "\n"; //end line
+				}
+				ifile2.close();		//close things
+				ofile2.close();
+			}
+			else {
+				cout << "files not found" << endl;
+			}
+
+			//Let the user know what was written to file
+			cout << "\nThis is the deciphered atbash message and the contents of the output file: ";
+
+			//This was the file that was just written
+			myReadFile.open("atbash_out.txt");
+
+			//Read the file that was just written
+			if (myReadFile.is_open()) {
+				while (getline(myReadFile, line))
+				{
+					cout << line;
+				}
+			}
+			else {
+				cout << "files not found" << endl;
+			}
+		}
+			//Works too well, there's a bug that I need to fix before this will work correctly
+		catch (out_of_range& e1)
+		{
+			cerr << e1.what() << endl;
+		}
+		//End of atbash cipher functionality
+		//****************************************************************************************
+
+			cout << "\n\nPlease close the window to exit the program.";
+
+
+		while (1);
+
+
 
 	return 0;
 }

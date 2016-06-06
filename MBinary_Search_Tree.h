@@ -29,7 +29,7 @@
       @return true if the item was not already
               in the tree, false otherwise
   */
-  virtual bool insert(const string& the_morse, const char& the_letter, int start_index);
+  virtual bool insert(const string& the_morse, const char& the_letter);
 
   /** Remove an item from the tree. 
       post: The item is no longer in the tree.
@@ -128,30 +128,28 @@
 	//Who wrote it
   //What it does
   bool Binary_Search_Tree::insert(
-	  const string& the_morse, const char& the_letter, int start_index) {
-  return insert(this->root, the_morse, the_letter, start_index);
+	  const string& the_morse, const char& the_letter) {
+  return insert(this->root, the_morse, the_letter, 0);
 }
 
 
   bool Binary_Search_Tree::insert(
 	  Tree_node*& local_root,
 	  const string& the_morse, const char& the_letter, int start_index) {
-	  string morse_string;
-	  for (int i = 0; i < the_morse.size(); i++)
-		  morse_string.push_back(the_morse[i]);
-		  if (local_root == NULL)
-		  {
-			  local_root = new Tree_node(the_morse, the_letter);
-			  return true;
-		  }
-		  else
-		  {
-			  if (the_morse[start_index] == '0')
-				  return insert(local_root->left, the_morse, the_letter, start_index + 1);
-			  else if (the_morse[start_index] == '1')
-				  return insert(local_root->right, the_morse, the_letter, start_index + 1);
-			  else
-				  return false;
+		  
+		if (local_root == NULL)
+		{
+			local_root = new Tree_node(the_morse, the_letter);
+			return true;
+		}
+		else
+		{
+			if (the_morse[start_index] == '0')
+				return insert(local_root->left, the_morse, the_letter, start_index + 1);
+			else if (the_morse[start_index] == '1')
+				return insert(local_root->right, the_morse, the_letter, start_index + 1);
+			else
+				return false;
 		  }
   }
 

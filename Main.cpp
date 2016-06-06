@@ -40,7 +40,7 @@ int main() {
 	Binary_Search_Tree* new_tree = new Binary_Search_Tree();
 	new_tree->insert("", NULL);
 
-	myReadFile.open("morse_key.txt"); //Change to your directory to work correctly (properties etc...)
+	myReadFile.open("morse_key2.txt"); //Change to your directory to work correctly (properties etc...)
 	char output[1000];
 	if (myReadFile.is_open()) {
 		while (getline(myReadFile, line))
@@ -54,15 +54,36 @@ int main() {
 		}
 	}
 	myReadFile.close();
-
-	char chars[100];
-	char char1 = 'h';
-	chars[0] = char1;
-
-	for (int i = 0; i < 9; i++)
-	{
-		chars[i + 1] = chars[i] + 1;
+	
+	string line2;
+	string temp_morse;
+	ofstream ofile("out.txt");
+	ifstream ifile("morse_input.txt");
+	char inchar;
+	if (ofile.is_open() & ifile.is_open()) {
+		while (getline(ifile, line2)) {
+			for (int i = 0; i < line2.length(); i++) {
+				inchar = (char)line2.at(i);
+				if (inchar == '1' || inchar == '0') {
+					temp_morse.append(1, inchar);
+				}
+				if (inchar == '.') {
+					ofile << new_tree->search(temp_morse);
+					temp_morse = "";
+				}
+				if (inchar == ' ') {
+					ofile << " ";
+				}
+			}
+			ofile << "\n";
+		}
+		ifile.close();
+		ofile.close();
 	}
+	else {
+		cout << "files not found" << endl;
+	}
+
 
 
 	
@@ -72,7 +93,7 @@ int main() {
 
 	cout << endl;
 
-	cout << "Search for 0: ";// << new_tree->search("0");
+	cout << "Search for 0: " << new_tree->search("0");
 
 	return 0;
 }
